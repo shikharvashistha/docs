@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
+        working-directory: boost/libs/numeric/ublas/doc/bin
         run: |
-            cd boost/libs/numeric/ublas/doc/bin
             sudo apt update
             sudo apt upgrade
             sudo apt install asciidoctor
