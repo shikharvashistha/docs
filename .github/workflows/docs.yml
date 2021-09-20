@@ -1,0 +1,51 @@
+name: docs
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  Build:
+    runs-on: '${{ matrix.os }}'
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: |
+            cd boost/libs/numeric/ublas/doc/bin
+            sudo apt update
+            sudo apt upgrade
+            sudo apt install asciidoctor
+            ./b2 -j 8 --toolset=gcc ../
+            
+            
+    #    run: git clone --recursive --jobs 8 https://github.com/boostorg/boost.git
+   #   - name: Switching to master branch
+   #     working-directory: boost/
+   #     run: git checkout master
+   #   - name: Updating master branch
+   #     working-directory: boost/
+   #     run: |
+    #      git checkout master
+    #      git pull
+      #    git submodule update --init --recursive --jobs 8
+      #    sudo apt update
+     #     sudo apt upgrade
+    #      sudo apt install asciidoctor
+    #  - name: Switching to develop
+    #    working-directory: boost/libs/numeric/ublas
+    #    run: |
+    #       git checkout develop
+    #       git fetch
+    #  - name: Building B2 engine
+    #    run: |
+    #      git clone https://github.com/boostorg/build.git
+     #     cd build
+      #    ./bootstrap.sh
+     #     ./b2 install --prefix=../boost/libs/numeric/ublas/doc
+     # - name: Building docs
+     #   working-directory: boost/libs/numeric/ublas/doc/bin
+      #  run: ./b2 -j 8 --toolset=gcc ../
